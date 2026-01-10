@@ -418,3 +418,9 @@ FodyWeavers.xsd
 *.msp
 
 .claude/
+
+backend/SasiadMa.Api/appsettings.Development.json
+
+backend/.idea/
+
+nul
