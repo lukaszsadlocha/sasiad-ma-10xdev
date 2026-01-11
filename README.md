@@ -209,6 +209,18 @@ sasiad-ma-10xdev/
 - ✅ Routing dla /privacy-policy i /terms
 - ✅ Publiczne strony (dostępne bez logowania)
 
+✅ **E2E Tests (Playwright):**
+- ✅ Playwright zainstalowany i skonfigurowany
+- ✅ 38 testów E2E pokrywających wszystkie User Stories (US-001 do US-011)
+- ✅ Helper functions (auth, community, items, bookings, messages)
+- ✅ Test fixtures (testowy obrazek dla uploadów)
+- ✅ **06-full-flow.spec.ts** - główny test krytycznego flow (PRD Section 7.9):
+  1. Rejestracja użytkownika A → Utworzenie społeczności → Generowanie linku
+  2. Rejestracja użytkownika B przez link → Dodanie przedmiotu
+  3. Rezerwacja → Akceptacja → Wymiana wiadomości → Przekazanie → Zwrot
+- ✅ Skrypty npm: `test:e2e`, `test:e2e:ui`, `test:e2e:headed`, `test:e2e:debug`
+- ✅ Dokumentacja: [E2E_TESTING.md](./E2E_TESTING.md) i [frontend/e2e/README.md](./frontend/e2e/README.md)
+
 ✅ **Dokumentacja:**
 - ✅ DEPLOYMENT.md - Kompletny przewodnik deployment
   - Konfiguracja Supabase (baza danych + storage)
@@ -279,12 +291,54 @@ npm run dev
 
 ## 🧪 Testowanie
 
+### Testowanie manualne
+
 Po uruchomieniu obu aplikacji:
 
 1. Otwórz przeglądarkę: `http://localhost:5173`
 2. Powinieneś zobaczyć stronę powitalną z połączeniem do backendu
 3. Jeśli backend działa poprawnie, zobaczysz zielony status ✅
 4. Jeśli backend nie działa, zobaczysz czerwony błąd ❌
+
+### Testy E2E (Playwright)
+
+**Wymagania:**
+- Backend uruchomiony na `http://localhost:5000`
+- Frontend uruchomiony na `http://localhost:5173`
+- Baza danych dostępna
+
+**Instalacja przeglądarek (pierwsze uruchomienie):**
+
+```bash
+cd frontend
+npx playwright install
+```
+
+**Uruchomienie testów:**
+
+```bash
+cd frontend
+
+# Wszystkie testy (headless)
+npm run test:e2e
+
+# Tryb UI (rekomendowane - debugowanie)
+npm run test:e2e:ui
+
+# Z widoczną przeglądarką
+npm run test:e2e:headed
+
+# Tylko główny test (full flow)
+npx playwright test e2e/06-full-flow.spec.ts
+```
+
+**Raport HTML:**
+
+```bash
+npm run test:e2e:report
+```
+
+**Dokumentacja:** Zobacz [E2E_TESTING.md](./E2E_TESTING.md)
 
 ## 🔍 Endpoint testowy
 
