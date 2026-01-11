@@ -30,4 +30,13 @@ public interface IEmailService
         string borrowerName,
         string itemName,
         string? reason);
+
+    /// <summary>
+    /// Send email notification when user receives a new message
+    /// </summary>
+    Task SendNewMessageEmailAsync(
+        string recipientEmail,
+        string recipientName,
+        string senderName,
+        string messagePreview);
 }

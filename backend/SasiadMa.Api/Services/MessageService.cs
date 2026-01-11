@@ -10,11 +10,13 @@ public class MessageService : IMessageService
 {
     private readonly AppDbContext _context;
     private readonly UserManager<User> _userManager;
+    private readonly IEmailService _emailService;
 
-    public MessageService(AppDbContext context, UserManager<User> userManager)
+    public MessageService(AppDbContext context, UserManager<User> userManager, IEmailService emailService)
     {
         _context = context;
         _userManager = userManager;
+        _emailService = emailService;
     }
 
     public async Task<List<ConversationResponse>> GetMyConversationsAsync(string userId)
@@ -180,6 +182,31 @@ public class MessageService : IMessageService
         conversation.UpdatedAt = DateTime.UtcNow;
 
         await _context.SaveChangesAsync();
+
+        // Wyślij email powiadomienie jeśli odbiorca ma włączone powiadomienia
+        if (recipient.EmailNotificationsEnabled && !string.IsNullOrEmpty(recipient.Email))
+        {
+            var messagePreview = request.Content.Length > 100
+                ? request.Content.Substring(0, 100) + "..."
+                : request.Content;
+
+            // Fire and forget - nie czekamy na wysłanie emaila
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await _emailService.SendNewMessageEmailAsync(
+                        recipient.Email,
+                        recipient.PreferredName,
+                        sender.PreferredName,
+                        messagePreview);
+                }
+                catch
+                {
+                    // Log error but don't fail the request
+                }
+            });
+        }
 
         return new MessageResponse
         {

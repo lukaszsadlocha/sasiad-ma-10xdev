@@ -182,3 +182,18 @@ export interface SendMessageRequest {
   recipientId: string;
   content: string;
 }
+
+// User Profile types
+export interface UserProfile {
+  id: string;
+  email: string;
+  preferredName: string;
+  avatarUrl?: string;
+  emailNotificationsEnabled: boolean;
+  communityId?: number;
+  communityName?: string;
+}
+
+export interface UpdateUserSettingsRequest {
+  emailNotificationsEnabled: boolean;
+}

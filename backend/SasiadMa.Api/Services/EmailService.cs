@@ -95,6 +95,36 @@ public class EmailService : IEmailService
         await SendEmailAsync(borrowerEmail, borrowerName, subject, htmlContent);
     }
 
+    public async Task SendNewMessageEmailAsync(
+        string recipientEmail,
+        string recipientName,
+        string senderName,
+        string messagePreview)
+    {
+        var subject = $"Nowa wiadomość od {senderName}";
+        var preview = messagePreview.Length > 100
+            ? messagePreview.Substring(0, 100) + "..."
+            : messagePreview;
+
+        var htmlContent = $@"
+            <h2>Cześć {recipientName}!</h2>
+            <p>Otrzymałeś/aś nową wiadomość od <strong>{senderName}</strong>:</p>
+            <blockquote style=""background-color: #f5f5f5; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0;"">
+                {preview}
+            </blockquote>
+            <p>
+                <a href=""{_frontendUrl}/messages"" style=""background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;"">
+                    Otwórz wiadomości
+                </a>
+            </p>
+            <p style=""color: #6c757d; font-size: 12px; margin-top: 30px;"">
+                Możesz wyłączyć powiadomienia email o wiadomościach w ustawieniach profilu.
+            </p>
+        ";
+
+        await SendEmailAsync(recipientEmail, recipientName, subject, htmlContent);
+    }
+
     private async Task SendEmailAsync(
         string toEmail,
         string toName,

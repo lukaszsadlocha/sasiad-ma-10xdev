@@ -6,6 +6,7 @@ public class User : IdentityUser
 {
     public string PreferredName { get; set; } = string.Empty;
     public string? AvatarUrl { get; set; }
+    public bool EmailNotificationsEnabled { get; set; } = true; // Default: true (user receives emails)
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 

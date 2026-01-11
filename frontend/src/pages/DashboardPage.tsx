@@ -52,6 +52,12 @@ export function DashboardPage() {
                 Witaj, <span className="font-medium">{user?.preferredName}</span>
               </span>
               <button
+                onClick={() => navigate('/profile')}
+                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+              >
+                Profil
+              </button>
+              <button
                 onClick={handleLogout}
                 className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
               >

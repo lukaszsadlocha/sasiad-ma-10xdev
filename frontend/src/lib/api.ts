@@ -188,3 +188,20 @@ export const messageApi = {
       body: JSON.stringify(data),
     }),
 };
+
+// User API functions
+import type {
+  UserProfile,
+  UpdateUserSettingsRequest
+} from '../types';
+
+export const userApi = {
+  getUserProfile: () =>
+    apiRequest<UserProfile>('/users/profile'),
+
+  updateUserSettings: (data: UpdateUserSettingsRequest) =>
+    apiRequest<UserProfile>('/users/settings', {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    }),
+};

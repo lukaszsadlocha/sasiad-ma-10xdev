@@ -138,9 +138,52 @@ sasiad-ma-10xdev/
 
 **Raport testów**: Zobacz [FAZA_5_RAPORT.md](./FAZA_5_RAPORT.md)
 
-⚠️ **WAŻNE:** Przed testowaniem zrestartuj backend, aby zastosować migrację AddMessages!
+**Faza 6: Email Notifications** - ✅ **UKOŃCZONA** (wymaga migracji)
 
-**Następna faza**: Faza 6 - Email Notifications
+✅ **Backend:**
+- ✅ EmailService z SendGrid (4 typy emaili)
+  - SendNewBookingRequestEmailAsync - Email do właściciela o nowej prośbie
+  - SendBookingApprovedEmailAsync - Email o akceptacji prośby
+  - SendBookingRejectedEmailAsync - Email o odrzuceniu prośby
+  - SendNewMessageEmailAsync - Email o nowej wiadomości (z opcją wyłączenia)
+- ✅ Pole EmailNotificationsEnabled w modelu User (default: true)
+- ✅ Wywołania EmailService w BookingService (już istniały)
+- ✅ Wywołania EmailService w MessageService (z warunkiem sprawdzania ustawień)
+- ✅ UserService + UserEndpoints
+  - GET /api/users/profile - Pobierz profil użytkownika
+  - PATCH /api/users/settings - Aktualizuj ustawienia powiadomień
+- ✅ User DTOs (UserProfileResponse, UpdateUserSettingsRequest)
+
+✅ **Frontend:**
+- ✅ ProfilePage - strona profilu użytkownika z ustawieniami
+- ✅ Checkbox "Otrzymuj powiadomienia email o nowych wiadomościach"
+- ✅ Automatyczne zapisywanie po zmianie ustawień
+- ✅ Komunikaty sukcesu/błędu
+- ✅ User types (UserProfile, UpdateUserSettingsRequest)
+- ✅ User API functions (getUserProfile, updateUserSettings)
+- ✅ Routing dla /profile
+- ✅ Przycisk "Profil" w nawigacji DashboardPage
+
+✅ **Email Templates (HTML):**
+- ✅ Nowa prośba o wypożyczenie - link do /my-items-requests
+- ✅ Akceptacja prośby - link do /my-bookings
+- ✅ Odrzucenie prośby - link do /items (z powodem)
+- ✅ Nowa wiadomość - link do /messages (z fragmentem, info o wyłączeniu)
+
+⚠️ **WAŻNE - Wymagane akcje:**
+1. **Zatrzym backend** (jeśli uruchomiony)
+2. **Uruchom migrację:**
+   ```bash
+   cd backend/SasiadMa.Api
+   dotnet ef migrations add AddEmailNotificationsEnabled
+   dotnet ef database update
+   ```
+3. **Uruchom backend ponownie**
+4. **Przetestuj wszystkie 4 typy emaili** (instrukcje w raporcie)
+
+**Raport testów**: Zobacz [FAZA_6_RAPORT.md](./FAZA_6_RAPORT.md)
+
+**Następna faza**: Faza 7 - Testy i Deployment
 
 ---
 

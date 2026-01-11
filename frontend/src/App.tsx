@@ -12,6 +12,7 @@ import ItemDetailsPage from './pages/ItemDetailsPage';
 import MyBookingsPage from './pages/MyBookingsPage';
 import MyItemsRequestsPage from './pages/MyItemsRequestsPage';
 import { MessagesPage } from './pages/MessagesPage';
+import { ProfilePage } from './pages/ProfilePage';
 
 function App() {
   return (
@@ -85,6 +86,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <MessagesPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
               </ProtectedRoute>
             }
           />
