@@ -66,7 +66,38 @@ sasiad-ma-10xdev/
 
 **Raport testów**: Zobacz [FAZA_1_RAPORT.md](./FAZA_1_RAPORT.md)
 
-**Następna faza**: Faza 2 - Społeczności (US-002, US-003, US-004)
+**Faza 2: Społeczności** - ✅ **UKOŃCZONA**
+
+✅ **Backend:**
+- ✅ Community DTOs (CreateCommunityRequest, CommunityResponse, InviteLinkResponse, JoinCommunityResponse)
+- ✅ ICommunityService interface + CommunityService implementation
+- ✅ Community Endpoints (5 endpointów API)
+  - POST /api/communities - Utworzenie społeczności (US-002)
+  - POST /api/communities/{id}/invite-link - Generowanie linku zaproszeniowego (US-003)
+  - POST /api/communities/join/{token} - Dołączenie do społeczności (US-004)
+  - GET /api/communities/my - Pobierz moją społeczność
+  - GET /api/communities/invite/{token} - Pobierz społeczność przez token (publiczny)
+- ✅ Walidacja MVP: 1 użytkownik = 1 społeczność
+
+✅ **Frontend:**
+- ✅ Community types (TypeScript)
+- ✅ Community API functions
+- ✅ CreateCommunityPage - formularz tworzenia społeczności
+- ✅ InviteLinkModal - modal z linkiem zaproszeniowym (kopiowanie do schowka)
+- ✅ JoinCommunityPage - strona dołączania (dla zalogowanych i niezalogowanych)
+- ✅ DashboardPage - wyświetlanie informacji o społeczności + przycisk generowania linku (dla adminów)
+- ✅ Routing dla wszystkich nowych stron
+
+✅ **Testy:**
+- ✅ Utworzenie społeczności - działa
+- ✅ Generowanie linku zaproszeniowego - działa
+- ✅ Dołączenie do społeczności przez link - działa
+- ✅ Walidacja 1 użytkownik = 1 społeczność - działa
+- ✅ Flow end-to-end przetestowane
+
+**Raport testów**: Zobacz [FAZA_2_RAPORT.md](./FAZA_2_RAPORT.md)
+
+**Następna faza**: Faza 3 - Przedmioty (US-005, US-006, US-007)
 
 ---
 

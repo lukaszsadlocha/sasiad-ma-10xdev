@@ -25,3 +25,31 @@ export interface LoginRequest {
   email: string;
   password: string;
 }
+
+// Community types
+export interface Community {
+  id: number;
+  name: string;
+  description?: string;
+  adminId: string;
+  adminName: string;
+  membersCount: number;
+  createdAt: string;
+}
+
+export interface CreateCommunityRequest {
+  name: string;
+  description?: string;
+}
+
+export interface InviteLinkResponse {
+  token: string;
+  fullUrl: string;
+  createdAt: string;
+}
+
+export interface JoinCommunityResponse {
+  communityId: number;
+  communityName: string;
+  message: string;
+}

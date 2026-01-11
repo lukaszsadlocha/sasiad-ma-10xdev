@@ -37,3 +37,35 @@ export async function apiRequest<T>(
 
   return response.json();
 }
+
+// Community API functions
+import type {
+  Community,
+  CreateCommunityRequest,
+  InviteLinkResponse,
+  JoinCommunityResponse
+} from '../types';
+
+export const communityApi = {
+  createCommunity: (data: CreateCommunityRequest) =>
+    apiRequest<Community>('/communities', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+
+  getMyCommunity: () =>
+    apiRequest<Community>('/communities/my'),
+
+  generateInviteLink: (communityId: number) =>
+    apiRequest<InviteLinkResponse>(`/communities/${communityId}/invite-link`, {
+      method: 'POST',
+    }),
+
+  joinCommunity: (token: string) =>
+    apiRequest<JoinCommunityResponse>(`/communities/join/${token}`, {
+      method: 'POST',
+    }),
+
+  getCommunityByInviteToken: (token: string) =>
+    apiRequest<Community>(`/communities/invite/${token}`),
+};

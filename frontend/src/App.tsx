@@ -4,6 +4,8 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { CreateCommunityPage } from './pages/CreateCommunityPage';
+import { JoinCommunityPage } from './pages/JoinCommunityPage';
 
 function App() {
   return (
@@ -12,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/invite/:token" element={<RegisterPage />} />
+          <Route path="/invite/:token" element={<JoinCommunityPage />} />
 
           {/* Protected routes */}
           <Route
@@ -20,6 +22,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/create-community"
+            element={
+              <ProtectedRoute>
+                <CreateCommunityPage />
               </ProtectedRoute>
             }
           />

@@ -61,6 +61,7 @@ builder.Services.AddAuthorization();
 
 // Services
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICommunityService, CommunityService>();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -90,5 +91,6 @@ app.MapGet("/api/health", () => new
 }).WithName("HealthCheck");
 
 app.MapAuthEndpoints();
+app.MapCommunityEndpoints();
 
 app.Run();
