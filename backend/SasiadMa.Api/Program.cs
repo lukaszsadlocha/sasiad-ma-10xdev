@@ -80,6 +80,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICommunityService, CommunityService>();
 builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -111,5 +113,6 @@ app.MapGet("/api/health", () => new
 app.MapAuthEndpoints();
 app.MapCommunityEndpoints();
 app.MapItemEndpoints();
+app.MapBookingEndpoints();
 
 app.Run();

@@ -181,7 +181,7 @@ namespace SasiadMa.Api.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("SasiadMa.Api.Models.Community", b =>
@@ -210,7 +210,7 @@ namespace SasiadMa.Api.Migrations
 
                     b.HasIndex("AdminId");
 
-                    b.ToTable("Communities");
+                    b.ToTable("Communities", (string)null);
                 });
 
             modelBuilder.Entity("SasiadMa.Api.Models.InviteLink", b =>
@@ -241,7 +241,7 @@ namespace SasiadMa.Api.Migrations
                     b.HasIndex("Token")
                         .IsUnique();
 
-                    b.ToTable("InviteLinks");
+                    b.ToTable("InviteLinks", (string)null);
                 });
 
             modelBuilder.Entity("SasiadMa.Api.Models.Item", b =>
@@ -289,7 +289,7 @@ namespace SasiadMa.Api.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("SasiadMa.Api.Models.User", b =>

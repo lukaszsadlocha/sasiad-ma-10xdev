@@ -99,3 +99,52 @@ export const ITEM_CATEGORIES = [
 ] as const;
 
 export type ItemCategory = typeof ITEM_CATEGORIES[number];
+
+// Booking types
+export enum BookingStatus {
+  Pending = 0,
+  Approved = 1,
+  Rejected = 2,
+  InProgress = 3,
+  Returned = 4
+}
+
+export interface Booking {
+  id: number;
+  itemId: number;
+  itemName: string;
+  itemPhotoUrl?: string;
+
+  borrowerId: string;
+  borrowerName: string;
+  borrowerAvatarUrl?: string;
+
+  ownerId: string;
+  ownerName: string;
+  ownerAvatarUrl?: string;
+
+  requestedFrom: string; // ISO date string
+  requestedTo: string;
+
+  borrowerNote?: string;
+  rejectionReason?: string;
+
+  status: BookingStatus;
+
+  handedOverAt?: string;
+  returnedAt?: string;
+
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateBookingRequest {
+  itemId: number;
+  requestedFrom: string; // ISO date string
+  requestedTo: string;
+  borrowerNote?: string;
+}
+
+export interface RejectBookingRequest {
+  reason?: string;
+}

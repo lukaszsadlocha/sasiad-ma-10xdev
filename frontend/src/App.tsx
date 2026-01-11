@@ -9,6 +9,8 @@ import { JoinCommunityPage } from './pages/JoinCommunityPage';
 import AddItemPage from './pages/AddItemPage';
 import ItemsListPage from './pages/ItemsListPage';
 import ItemDetailsPage from './pages/ItemDetailsPage';
+import MyBookingsPage from './pages/MyBookingsPage';
+import MyItemsRequestsPage from './pages/MyItemsRequestsPage';
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/register/:token" element={<RegisterPage />} />
           <Route path="/invite/:token" element={<JoinCommunityPage />} />
 
           {/* Protected routes */}
@@ -57,6 +60,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <ItemDetailsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-bookings"
+            element={
+              <ProtectedRoute>
+                <MyBookingsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-items-requests"
+            element={
+              <ProtectedRoute>
+                <MyItemsRequestsPage />
               </ProtectedRoute>
             }
           />

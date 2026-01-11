@@ -108,12 +108,24 @@ export function DashboardPage() {
                 </div>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <button
                   onClick={() => navigate('/items')}
                   className="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
                   Przejdź do przedmiotów
+                </button>
+                <button
+                  onClick={() => navigate('/my-bookings')}
+                  className="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  Moje wypożyczenia
+                </button>
+                <button
+                  onClick={() => navigate('/my-items-requests')}
+                  className="px-6 py-3 bg-purple-600 text-white font-medium rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                >
+                  Prośby o moje przedmioty
                 </button>
               </div>
 
@@ -161,13 +173,14 @@ export function DashboardPage() {
 
           {/* Next Steps */}
           <div className="bg-blue-50 border border-blue-200 text-blue-800 px-6 py-4 rounded-lg">
-            <p className="font-medium mb-2">Faza 2 - Społeczności została zaimplementowana! ✅</p>
+            <p className="font-medium mb-2">Faza 4 - Rezerwacje i Wypożyczenia została zaimplementowana! ✅</p>
             <p className="text-sm">
-              Możesz teraz tworzyć społeczności, generować linki zaproszeniowe i dołączać do społeczności.
+              Możesz teraz rezerwować przedmioty od sąsiadów, zarządzać rezerwacjami i potwierdzać wypożyczenia.
             </p>
             <ul className="text-sm mt-2 space-y-1 list-disc list-inside">
-              <li>Następna faza: Zarządzanie przedmiotami</li>
-              <li>Później: System rezerwacji i komunikacja</li>
+              <li>Rezerwuj przedmioty: przejdź do listy i kliknij "Rezerwuj"</li>
+              <li>Przeglądaj rezerwacje: "Moje wypożyczenia" pokazuje Twoje rezerwacje</li>
+              <li>"Prośby o moje przedmioty" - zarządzaj rezerwacjami jako właściciel</li>
             </ul>
           </div>
         </div>

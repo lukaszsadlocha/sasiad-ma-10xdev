@@ -124,3 +124,45 @@ export const itemApi = {
       body: JSON.stringify({ status }),
     }),
 };
+
+// Booking API functions
+import type {
+  Booking,
+  CreateBookingRequest,
+  RejectBookingRequest
+} from '../types';
+
+export const bookingApi = {
+  createBooking: (data: CreateBookingRequest) =>
+    apiRequest<Booking>('/bookings', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+
+  getMyBookings: () =>
+    apiRequest<Booking[]>('/bookings/my'),
+
+  getBookingsForMyItems: () =>
+    apiRequest<Booking[]>('/bookings/my-items'),
+
+  approveBooking: (bookingId: number) =>
+    apiRequest<Booking>(`/bookings/${bookingId}/approve`, {
+      method: 'PATCH',
+    }),
+
+  rejectBooking: (bookingId: number, data: RejectBookingRequest) =>
+    apiRequest<Booking>(`/bookings/${bookingId}/reject`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    }),
+
+  confirmHandOver: (bookingId: number) =>
+    apiRequest<Booking>(`/bookings/${bookingId}/hand-over`, {
+      method: 'PATCH',
+    }),
+
+  confirmReturn: (bookingId: number) =>
+    apiRequest<Booking>(`/bookings/${bookingId}/return`, {
+      method: 'PATCH',
+    }),
+};

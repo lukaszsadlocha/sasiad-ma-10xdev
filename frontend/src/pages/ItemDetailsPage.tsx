@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { itemApi } from '../lib/api';
 import { Item, ItemStatus } from '../types';
 import { useAuth } from '../contexts/AuthContext';
+import BookingModal from '../components/bookings/BookingModal';
 
 export default function ItemDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -12,6 +13,8 @@ export default function ItemDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [updatingStatus, setUpdatingStatus] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [bookingSuccess, setBookingSuccess] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -233,15 +236,29 @@ export default function ItemDetailsPage() {
             </div>
           )}
 
-          {/* Borrow button for non-owners (placeholder for future phase) */}
+          {/* Borrow button for non-owners */}
           {!isOwner && item.status === ItemStatus.Available && (
             <div className="border-t border-gray-200 pt-4">
               <button
-                disabled
-                className="w-full bg-gray-300 text-gray-500 py-3 px-4 rounded-md cursor-not-allowed"
+                onClick={() => setShowBookingModal(true)}
+                className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700"
               >
-                Funkcja wypożyczania dostępna wkrótce
+                Rezerwuj
               </button>
+              {bookingSuccess && (
+                <div className="mt-2 p-2 bg-green-50 border border-green-200 text-green-700 rounded text-sm">
+                  ✅ Rezerwacja wysłana! Czekaj na odpowiedź.
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Unavailable message for non-owners */}
+          {!isOwner && item.status !== ItemStatus.Available && (
+            <div className="border-t border-gray-200 pt-4">
+              <p className="text-center text-gray-600 py-3">
+                Ten przedmiot jest obecnie niedostępny
+              </p>
             </div>
           )}
 
@@ -259,6 +276,20 @@ export default function ItemDetailsPage() {
           </div>
         </div>
       </div>
+
+      {/* Booking Modal */}
+      {showBookingModal && item && !isOwner && (
+        <BookingModal
+          itemId={item.id}
+          itemName={item.name}
+          ownerName={item.ownerName}
+          onClose={() => setShowBookingModal(false)}
+          onSuccess={() => {
+            setBookingSuccess(true);
+            setTimeout(() => setBookingSuccess(false), 3000);
+          }}
+        />
+      )}
     </div>
   );
 }
