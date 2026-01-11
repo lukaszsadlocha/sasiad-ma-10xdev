@@ -69,3 +69,58 @@ export const communityApi = {
   getCommunityByInviteToken: (token: string) =>
     apiRequest<Community>(`/communities/invite/${token}`),
 };
+
+// Item API functions
+import type {
+  Item,
+  CreateItemRequest,
+  ItemStatus,
+  UpdateItemStatusRequest
+} from '../types';
+
+export const itemApi = {
+  createItem: async (data: CreateItemRequest, photo?: File): Promise<Item> => {
+    const url = `${API_BASE_URL}/items`;
+    const formData = new FormData();
+
+    formData.append('name', data.name);
+    formData.append('category', data.category);
+    formData.append('description', data.description);
+
+    if (photo) {
+      formData.append('photo', photo);
+    }
+
+    const token = localStorage.getItem('accessToken');
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: formData,
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+      throw new ApiError(response.status, error.error || `HTTP ${response.status}`);
+    }
+
+    return response.json();
+  },
+
+  getCommunityItems: () =>
+    apiRequest<Item[]>('/items'),
+
+  getMyItems: () =>
+    apiRequest<Item[]>('/items/my'),
+
+  getItemById: (id: number) =>
+    apiRequest<Item>(`/items/${id}`),
+
+  updateItemStatus: (id: number, status: ItemStatus) =>
+    apiRequest<Item>(`/items/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status }),
+    }),
+};

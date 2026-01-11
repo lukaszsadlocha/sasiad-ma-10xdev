@@ -6,6 +6,9 @@ import { RegisterPage } from './pages/RegisterPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { CreateCommunityPage } from './pages/CreateCommunityPage';
 import { JoinCommunityPage } from './pages/JoinCommunityPage';
+import AddItemPage from './pages/AddItemPage';
+import ItemsListPage from './pages/ItemsListPage';
+import ItemDetailsPage from './pages/ItemDetailsPage';
 
 function App() {
   return (
@@ -30,6 +33,30 @@ function App() {
             element={
               <ProtectedRoute>
                 <CreateCommunityPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/items"
+            element={
+              <ProtectedRoute>
+                <ItemsListPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/items/add"
+            element={
+              <ProtectedRoute>
+                <AddItemPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/items/:id"
+            element={
+              <ProtectedRoute>
+                <ItemDetailsPage />
               </ProtectedRoute>
             }
           />

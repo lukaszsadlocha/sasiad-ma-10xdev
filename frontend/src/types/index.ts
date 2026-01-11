@@ -53,3 +53,49 @@ export interface JoinCommunityResponse {
   communityName: string;
   message: string;
 }
+
+// Item types
+export enum ItemStatus {
+  Available = 0,
+  Borrowed = 1,
+  Unavailable = 2
+}
+
+export interface Item {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  photoUrl?: string;
+  status: ItemStatus;
+  ownerId: string;
+  ownerName: string;
+  ownerAvatarUrl?: string;
+  communityId: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateItemRequest {
+  name: string;
+  category: string;
+  description: string;
+}
+
+export interface UpdateItemStatusRequest {
+  status: ItemStatus;
+}
+
+// Available categories for items (from PRD)
+export const ITEM_CATEGORIES = [
+  'Narzędzia ogrodowe',
+  'Narzędzia budowlane',
+  'Sprzęt dziecięcy',
+  'Sport',
+  'Elektronika',
+  'Książki',
+  'Kuchnia',
+  'Inne'
+] as const;
+
+export type ItemCategory = typeof ITEM_CATEGORIES[number];

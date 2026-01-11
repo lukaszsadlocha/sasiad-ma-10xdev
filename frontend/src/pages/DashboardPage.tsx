@@ -108,6 +108,15 @@ export function DashboardPage() {
                 </div>
               </div>
 
+              <div className="mt-6">
+                <button
+                  onClick={() => navigate('/items')}
+                  className="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                >
+                  Przejdź do przedmiotów
+                </button>
+              </div>
+
               {isAdmin && (
                 <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <p className="text-sm text-blue-800">

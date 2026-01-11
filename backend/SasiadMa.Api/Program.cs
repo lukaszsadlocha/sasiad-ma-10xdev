@@ -8,7 +8,20 @@ using SasiadMa.Api.Models;
 using SasiadMa.Api.Services;
 using SasiadMa.Api.Endpoints;
 
+// Ensure ASPNETCORE_ENVIRONMENT is set to Development if not already set
+if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")))
+{
+    Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
+}
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Configuration - Load environment-specific appsettings
+var env = builder.Environment;
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
 
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -59,9 +72,14 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
+// HttpClient for external services
+builder.Services.AddHttpClient();
+
 // Services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICommunityService, CommunityService>();
+builder.Services.AddScoped<IStorageService, StorageService>();
+builder.Services.AddScoped<IItemService, ItemService>();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -92,5 +110,6 @@ app.MapGet("/api/health", () => new
 
 app.MapAuthEndpoints();
 app.MapCommunityEndpoints();
+app.MapItemEndpoints();
 
 app.Run();
