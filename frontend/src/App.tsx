@@ -13,6 +13,8 @@ import MyBookingsPage from './pages/MyBookingsPage';
 import MyItemsRequestsPage from './pages/MyItemsRequestsPage';
 import { MessagesPage } from './pages/MessagesPage';
 import { ProfilePage } from './pages/ProfilePage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsPage from './pages/TermsPage';
 
 function App() {
   return (
@@ -97,6 +99,10 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* Public pages */}
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
 
           {/* Redirect root to dashboard */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
