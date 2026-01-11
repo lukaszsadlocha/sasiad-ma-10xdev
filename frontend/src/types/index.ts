@@ -148,3 +148,37 @@ export interface CreateBookingRequest {
 export interface RejectBookingRequest {
   reason?: string;
 }
+
+// Message types
+export interface Message {
+  id: number;
+  conversationId: number;
+  senderId: string;
+  senderName: string;
+  content: string;
+  sentAt: string; // ISO date string
+}
+
+export interface Conversation {
+  id: number;
+  otherUserId: string;
+  otherUserName: string;
+  otherUserAvatarUrl?: string;
+  createdAt: string;
+  updatedAt: string;
+  lastMessageContent?: string;
+  lastMessageSentAt?: string;
+}
+
+export interface ConversationDetail {
+  id: number;
+  otherUserId: string;
+  otherUserName: string;
+  otherUserAvatarUrl?: string;
+  messages: Message[];
+}
+
+export interface SendMessageRequest {
+  recipientId: string;
+  content: string;
+}

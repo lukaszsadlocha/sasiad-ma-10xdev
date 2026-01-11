@@ -184,26 +184,36 @@ export default function ItemDetailsPage() {
           {/* Owner info */}
           <div className="border-t border-gray-200 pt-4 mb-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-3">Właściciel</h2>
-            <div className="flex items-center gap-3">
-              {item.ownerAvatarUrl ? (
-                <img
-                  src={item.ownerAvatarUrl}
-                  alt={item.ownerName}
-                  className="w-12 h-12 rounded-full"
-                />
-              ) : (
-                <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center">
-                  <span className="text-lg text-gray-600">
-                    {item.ownerName.charAt(0).toUpperCase()}
-                  </span>
-                </div>
-              )}
-              <div>
-                <p className="font-medium text-gray-900">{item.ownerName}</p>
-                {isOwner && (
-                  <p className="text-sm text-gray-500">To Twój przedmiot</p>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                {item.ownerAvatarUrl ? (
+                  <img
+                    src={item.ownerAvatarUrl}
+                    alt={item.ownerName}
+                    className="w-12 h-12 rounded-full"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center">
+                    <span className="text-lg text-gray-600">
+                      {item.ownerName.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
                 )}
+                <div>
+                  <p className="font-medium text-gray-900">{item.ownerName}</p>
+                  {isOwner && (
+                    <p className="text-sm text-gray-500">To Twój przedmiot</p>
+                  )}
+                </div>
               </div>
+              {!isOwner && (
+                <button
+                  onClick={() => navigate(`/messages?userId=${item.ownerId}`)}
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 text-sm"
+                >
+                  Wyślij wiadomość
+                </button>
+              )}
             </div>
           </div>
 

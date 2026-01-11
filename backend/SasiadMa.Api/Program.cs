@@ -82,6 +82,7 @@ builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -114,5 +115,6 @@ app.MapAuthEndpoints();
 app.MapCommunityEndpoints();
 app.MapItemEndpoints();
 app.MapBookingEndpoints();
+app.MapMessageEndpoints();
 
 app.Run();

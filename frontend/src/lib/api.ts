@@ -166,3 +166,25 @@ export const bookingApi = {
       method: 'PATCH',
     }),
 };
+
+// Message API functions
+import type {
+  Message,
+  Conversation,
+  ConversationDetail,
+  SendMessageRequest
+} from '../types';
+
+export const messageApi = {
+  getMyConversations: () =>
+    apiRequest<Conversation[]>('/messages/conversations'),
+
+  getConversationWithUser: (otherUserId: string) =>
+    apiRequest<ConversationDetail>(`/messages/conversations/${otherUserId}`),
+
+  sendMessage: (data: SendMessageRequest) =>
+    apiRequest<Message>('/messages', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+};

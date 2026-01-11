@@ -14,6 +14,8 @@ public class AppDbContext : IdentityDbContext<User>
     public DbSet<InviteLink> InviteLinks { get; set; }
     public DbSet<Item> Items { get; set; }
     public DbSet<Booking> Bookings { get; set; }
+    public DbSet<Message> Messages { get; set; }
+    public DbSet<Conversation> Conversations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -71,6 +73,34 @@ public class AppDbContext : IdentityDbContext<User>
             .HasOne(b => b.Owner)
             .WithMany(u => u.BookingsAsOwner)
             .HasForeignKey(b => b.OwnerId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Conversation - User1
+        builder.Entity<Conversation>()
+            .HasOne(c => c.User1)
+            .WithMany()
+            .HasForeignKey(c => c.User1Id)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Conversation - User2
+        builder.Entity<Conversation>()
+            .HasOne(c => c.User2)
+            .WithMany()
+            .HasForeignKey(c => c.User2Id)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Message - Conversation
+        builder.Entity<Message>()
+            .HasOne(m => m.Conversation)
+            .WithMany(c => c.Messages)
+            .HasForeignKey(m => m.ConversationId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Message - Sender
+        builder.Entity<Message>()
+            .HasOne(m => m.Sender)
+            .WithMany()
+            .HasForeignKey(m => m.SenderId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

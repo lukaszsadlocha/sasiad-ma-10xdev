@@ -108,7 +108,7 @@ export function DashboardPage() {
                 </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <button
                   onClick={() => navigate('/items')}
                   className="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -126,6 +126,12 @@ export function DashboardPage() {
                   className="px-6 py-3 bg-purple-600 text-white font-medium rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                   Prośby o moje przedmioty
+                </button>
+                <button
+                  onClick={() => navigate('/messages')}
+                  className="px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  Wiadomości
                 </button>
               </div>
 
@@ -173,14 +179,14 @@ export function DashboardPage() {
 
           {/* Next Steps */}
           <div className="bg-blue-50 border border-blue-200 text-blue-800 px-6 py-4 rounded-lg">
-            <p className="font-medium mb-2">Faza 4 - Rezerwacje i Wypożyczenia została zaimplementowana! ✅</p>
+            <p className="font-medium mb-2">Faza 5 - Komunikacja została zaimplementowana! ✅</p>
             <p className="text-sm">
-              Możesz teraz rezerwować przedmioty od sąsiadów, zarządzać rezerwacjami i potwierdzać wypożyczenia.
+              Możesz teraz wymieniać wiadomości z sąsiadami bezpośrednio w aplikacji.
             </p>
             <ul className="text-sm mt-2 space-y-1 list-disc list-inside">
-              <li>Rezerwuj przedmioty: przejdź do listy i kliknij "Rezerwuj"</li>
-              <li>Przeglądaj rezerwacje: "Moje wypożyczenia" pokazuje Twoje rezerwacje</li>
-              <li>"Prośby o moje przedmioty" - zarządzaj rezerwacjami jako właściciel</li>
+              <li>Kliknij "Wiadomości", aby zobaczyć swoje konwersacje</li>
+              <li>Wyślij wiadomość do właściciela przedmiotu lub innego członka społeczności</li>
+              <li>Czat 1-1 z innymi członkami społeczności</li>
             </ul>
           </div>
         </div>

@@ -11,6 +11,7 @@ import ItemsListPage from './pages/ItemsListPage';
 import ItemDetailsPage from './pages/ItemDetailsPage';
 import MyBookingsPage from './pages/MyBookingsPage';
 import MyItemsRequestsPage from './pages/MyItemsRequestsPage';
+import { MessagesPage } from './pages/MessagesPage';
 
 function App() {
   return (
@@ -76,6 +77,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <MyItemsRequestsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/messages"
+            element={
+              <ProtectedRoute>
+                <MessagesPage />
               </ProtectedRoute>
             }
           />

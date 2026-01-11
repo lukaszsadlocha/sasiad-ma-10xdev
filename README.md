@@ -97,7 +97,50 @@ sasiad-ma-10xdev/
 
 **Raport testów**: Zobacz [FAZA_2_RAPORT.md](./FAZA_2_RAPORT.md)
 
-**Następna faza**: Faza 3 - Przedmioty (US-005, US-006, US-007)
+**Faza 3: Przedmioty** - ✅ **UKOŃCZONA** (US-005, US-006, US-007)
+
+**Faza 4: Rezerwacje i Wypożyczenia** - ✅ **UKOŃCZONA** (US-008, US-009, US-010)
+
+**Faza 5: Komunikacja** - ✅ **UKOŃCZONA** (US-011)
+
+✅ **Backend:**
+- ✅ Message & Conversation Models (Message.cs, Conversation.cs)
+- ✅ Message DTOs (SendMessageRequest, MessageResponse, ConversationResponse, ConversationDetailResponse)
+- ✅ IMessageService + MessageService implementation
+- ✅ Message Endpoints (3 endpointy API)
+  - GET /api/messages/conversations - Lista konwersacji użytkownika
+  - GET /api/messages/conversations/{otherUserId} - Konwersacja z konkretnym użytkownikiem
+  - POST /api/messages - Wysłanie wiadomości
+- ✅ Automatyczne tworzenie konwersacji przy pierwszej wiadomości
+- ✅ Walidacja: tylko członkowie tej samej społeczności mogą rozmawiać
+- ✅ Migracja AddMessages utworzona (wymaga restartu backendu)
+
+✅ **Frontend:**
+- ✅ Message types (TypeScript)
+- ✅ Message API functions
+- ✅ MessagesPage - główna strona wiadomości
+- ✅ ConversationList component - lista konwersacji (sidebar)
+- ✅ ChatWindow component - okno czatu z historią wiadomości
+- ✅ Routing dla /messages
+- ✅ Przycisk "Wiadomości" w DashboardPage
+- ✅ Przycisk "Wyślij wiadomość" w ItemDetailsPage (dla nie-właścicieli)
+- ✅ Responsywny layout (desktop: sidebar + chat, mobile: osobne widoki)
+- ✅ Auto-scroll do najnowszej wiadomości
+- ✅ Licznik znaków (max 1000)
+
+✅ **Funkcje:**
+- ✅ Czat 1-1 między członkami społeczności
+- ✅ Historia wiadomości chronologicznie (najstarsze u góry)
+- ✅ Wyświetlanie ostatniej wiadomości i czasu w liście konwersacji
+- ✅ Formularz wysyłania: Enter = wyślij, Shift+Enter = nowa linia
+- ✅ Walidacja: max 1000 znaków, nie można wysłać pustej wiadomości
+- ✅ URL parametr ?userId= dla bezpośredniego otwarcia czatu
+
+**Raport testów**: Zobacz [FAZA_5_RAPORT.md](./FAZA_5_RAPORT.md)
+
+⚠️ **WAŻNE:** Przed testowaniem zrestartuj backend, aby zastosować migrację AddMessages!
+
+**Następna faza**: Faza 6 - Email Notifications
 
 ---
 
