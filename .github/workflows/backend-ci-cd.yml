@@ -83,7 +83,7 @@ jobs:
         cache-to: type=gha,mode=max
 
     - name: Deploy to Azure App Service
-      if: false  # Disabled until Azure is configured
+      if: true  # Disabled until Azure is configured
       uses: azure/webapps-deploy@v3
       with:
         app-name: 'sasiad-ma-api'
