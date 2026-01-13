@@ -60,23 +60,23 @@ public class ItemEndpointsTests : IClassFixture<TestWebApplicationFactory>
         await CreateCommunityAsync(token);
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        var request = new CreateItemRequest
+        var content = new MultipartFormDataContent
         {
-            Name = "Test Item",
-            Category = "Narzędzia ogrodowe",
-            Description = "Test description for the item"
+            { new StringContent("Test Item"), "Name" },
+            { new StringContent("Narzędzia ogrodowe"), "Category" },
+            { new StringContent("Test description for the item"), "Description" }
         };
 
         // Act
-        var response = await _client.PostAsJsonAsync("/api/items", request);
+        var response = await _client.PostAsync("/api/items", content);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
         var item = await response.Content.ReadFromJsonAsync<ItemResponse>();
         item.Should().NotBeNull();
-        item!.Name.Should().Be(request.Name);
-        item.Category.Should().Be(request.Category);
-        item.Description.Should().Be(request.Description);
+        item!.Name.Should().Be("Test Item");
+        item.Category.Should().Be("Narzędzia ogrodowe");
+        item.Description.Should().Be("Test description for the item");
         item.Status.Should().Be(ItemStatus.Available);
     }
 
@@ -87,15 +87,15 @@ public class ItemEndpointsTests : IClassFixture<TestWebApplicationFactory>
         var token = await RegisterAndGetTokenAsync("nocommunity@example.com", "No Community User");
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        var request = new CreateItemRequest
+        var content = new MultipartFormDataContent
         {
-            Name = "Test Item",
-            Category = "Narzędzia ogrodowe",
-            Description = "Test description"
+            { new StringContent("Test Item"), "Name" },
+            { new StringContent("Narzędzia ogrodowe"), "Category" },
+            { new StringContent("Test description"), "Description" }
         };
 
         // Act
-        var response = await _client.PostAsJsonAsync("/api/items", request);
+        var response = await _client.PostAsync("/api/items", content);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -110,13 +110,13 @@ public class ItemEndpointsTests : IClassFixture<TestWebApplicationFactory>
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
         // Create an item first
-        var createRequest = new CreateItemRequest
+        var content = new MultipartFormDataContent
         {
-            Name = "Test Item for List",
-            Category = "Sport",
-            Description = "Test description"
+            { new StringContent("Test Item for List"), "Name" },
+            { new StringContent("Sport"), "Category" },
+            { new StringContent("Test description"), "Description" }
         };
-        await _client.PostAsJsonAsync("/api/items", createRequest);
+        await _client.PostAsync("/api/items", content);
 
         // Act
         var response = await _client.GetAsync("/api/items");
@@ -137,13 +137,13 @@ public class ItemEndpointsTests : IClassFixture<TestWebApplicationFactory>
         await CreateCommunityAsync(token);
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        var createRequest = new CreateItemRequest
+        var content = new MultipartFormDataContent
         {
-            Name = "Test Item By Id",
-            Category = "Elektronika",
-            Description = "Test description"
+            { new StringContent("Test Item By Id"), "Name" },
+            { new StringContent("Elektronika"), "Category" },
+            { new StringContent("Test description"), "Description" }
         };
-        var createResponse = await _client.PostAsJsonAsync("/api/items", createRequest);
+        var createResponse = await _client.PostAsync("/api/items", content);
         var createdItem = await createResponse.Content.ReadFromJsonAsync<ItemResponse>();
 
         // Act
@@ -181,20 +181,20 @@ public class ItemEndpointsTests : IClassFixture<TestWebApplicationFactory>
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
         // Create items
-        var item1 = new CreateItemRequest
+        var content1 = new MultipartFormDataContent
         {
-            Name = "My Item 1",
-            Category = "Kuchnia",
-            Description = "Description 1"
+            { new StringContent("My Item 1"), "Name" },
+            { new StringContent("Kuchnia"), "Category" },
+            { new StringContent("Description 1"), "Description" }
         };
-        var item2 = new CreateItemRequest
+        var content2 = new MultipartFormDataContent
         {
-            Name = "My Item 2",
-            Category = "Książki",
-            Description = "Description 2"
+            { new StringContent("My Item 2"), "Name" },
+            { new StringContent("Książki"), "Category" },
+            { new StringContent("Description 2"), "Description" }
         };
-        await _client.PostAsJsonAsync("/api/items", item1);
-        await _client.PostAsJsonAsync("/api/items", item2);
+        await _client.PostAsync("/api/items", content1);
+        await _client.PostAsync("/api/items", content2);
 
         // Act
         var response = await _client.GetAsync("/api/items/my");

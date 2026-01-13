@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -9,6 +10,8 @@ namespace SasiadMa.IntegrationTests;
 
 public class TestWebApplicationFactory : WebApplicationFactory<Program>
 {
+    private readonly string _databaseName = $"TestDatabase_{Guid.NewGuid()}";
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureServices(services =>
@@ -22,10 +25,10 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
                 services.Remove(descriptor);
             }
 
-            // Add in-memory database for testing
+            // Add in-memory database for testing with unique name per instance
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseInMemoryDatabase("TestDatabase");
+                options.UseInMemoryDatabase(_databaseName);
             });
 
             // Build the service provider

@@ -62,14 +62,14 @@ public class BookingEndpointsTests : IClassFixture<TestWebApplicationFactory>
     {
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        var request = new CreateItemRequest
+        var content = new MultipartFormDataContent
         {
-            Name = "Test Item",
-            Category = "Narzędzia ogrodowe",
-            Description = "Test description"
+            { new StringContent("Test Item"), "Name" },
+            { new StringContent("Narzędzia ogrodowe"), "Category" },
+            { new StringContent("Test description"), "Description" }
         };
 
-        var response = await _client.PostAsJsonAsync("/api/items", request);
+        var response = await _client.PostAsync("/api/items", content);
         var item = await response.Content.ReadFromJsonAsync<ItemResponse>();
         return item!.Id;
     }
