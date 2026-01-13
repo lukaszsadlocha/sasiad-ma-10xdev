@@ -5,7 +5,7 @@ import { userApi, ApiError } from '../lib/api';
 import type { UserProfile } from '../types';
 
 export function ProfilePage() {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);

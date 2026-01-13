@@ -13,9 +13,9 @@ export async function apiRequest<T>(
 ): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
 
-  const headers: HeadersInit = {
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    ...options?.headers,
+    ...options?.headers as Record<string, string>,
   };
 
   // Add auth token if available
@@ -74,8 +74,7 @@ export const communityApi = {
 import type {
   Item,
   CreateItemRequest,
-  ItemStatus,
-  UpdateItemStatusRequest
+  ItemStatus
 } from '../types';
 
 export const itemApi = {

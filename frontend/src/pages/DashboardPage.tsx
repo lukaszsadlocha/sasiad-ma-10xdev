@@ -1,7 +1,7 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { communityApi, ApiError } from '../lib/api';
+import { communityApi } from '../lib/api';
 import { InviteLinkModal } from '../components/community/InviteLinkModal';
 import type { Community } from '../types';
 
