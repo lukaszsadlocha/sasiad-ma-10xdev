@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SasiadMa.Api", "SasiadMa.Api\SasiadMa.Api.csproj", "{48B5444C-2A80-4134-A91C-40298C77BFD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SasiadMa.UnitTests", "SasiadMa.UnitTests\SasiadMa.UnitTests.csproj", "{A7E81C9B-2CF8-41AC-83B8-0EAA92542DF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SasiadMa.IntegrationTests", "SasiadMa.IntegrationTests\SasiadMa.IntegrationTests.csproj", "{292426F9-75FF-4E9A-9A22-6119150F1428}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{48B5444C-2A80-4134-A91C-40298C77BFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48B5444C-2A80-4134-A91C-40298C77BFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48B5444C-2A80-4134-A91C-40298C77BFD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7E81C9B-2CF8-41AC-83B8-0EAA92542DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7E81C9B-2CF8-41AC-83B8-0EAA92542DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7E81C9B-2CF8-41AC-83B8-0EAA92542DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7E81C9B-2CF8-41AC-83B8-0EAA92542DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{292426F9-75FF-4E9A-9A22-6119150F1428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{292426F9-75FF-4E9A-9A22-6119150F1428}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{292426F9-75FF-4E9A-9A22-6119150F1428}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{292426F9-75FF-4E9A-9A22-6119150F1428}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
