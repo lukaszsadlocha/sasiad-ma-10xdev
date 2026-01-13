@@ -119,7 +119,7 @@ Testy E2E (`06-full-flow.spec.ts`) testują upload zdjęć przedmiotów i wymaga
 
 | Name | Value | Uwagi |
 |------|-------|-------|
-| `ConnectionStrings__DefaultConnection` | `Host=aws-1-eu-west-1.pooler.supabase.com;Port=5432;Database=postgres;Username=postgres.inxqvhumibbmerkrfurb;Password=9BAbi4xDJz4C2Z0o;SSL Mode=Require;Trust Server Certificate=true` | Z appsettings.Development.json |
+| `ConnectionStrings__DefaultConnection` | `Host=aw...;Trust Server Certificate=true` | Z appsettings.Development.json |
 | `Jwt__Secret` | **WYGENERUJ NOWY!** | ⚠️ NIE używaj dev secret w produkcji! |
 | `Jwt__Issuer` | `sasiad-ma-api` | |
 | `Jwt__Audience` | `sasiad-ma-client` | |
