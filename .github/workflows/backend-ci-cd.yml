@@ -86,9 +86,9 @@ jobs:
         cache-to: type=gha,mode=max
 
     - name: Deploy to Azure App Service
-      if: true  # Disabled until Azure is configured
+      if: true 
       uses: azure/webapps-deploy@v3
       with:
-        app-name: 'sasiad-ma-api'
+        app-name: 'sasiad-md-api'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         images: ghcr.io/${{ github.repository }}/sasiad-ma-api:latest
