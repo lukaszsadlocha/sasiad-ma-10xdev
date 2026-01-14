@@ -30,8 +30,8 @@ export async function registerUser(page: Page, user: TestUser): Promise<void> {
 
   // Fill registration form
   await page.getByLabel(/email/i).fill(user.email);
-  await page.getByLabel(/hasło(?!\s+ponownie)/i).first().fill(user.password);
-  await page.getByLabel(/powtórz hasło|hasło ponownie/i).fill(user.password);
+  await page.getByLabel(/^hasło$/i).fill(user.password);
+  await page.getByLabel(/potwierdź hasło|powtórz hasło|hasło ponownie/i).fill(user.password);
   await page.getByLabel(/imię|preferowana nazwa/i).fill(user.preferredName);
 
   // Accept terms

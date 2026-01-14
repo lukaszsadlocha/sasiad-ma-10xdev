@@ -15,8 +15,8 @@ test.describe('Authentication', () => {
     // Verify we're on dashboard or create-community page
     expect(page.url()).toMatch(/\/(dashboard|create-community)/);
 
-    // Verify user name is displayed
-    await expect(page.getByText(user.preferredName)).toBeVisible({ timeout: 5000 });
+    // Verify user name is displayed (first occurrence is enough)
+    await expect(page.getByText(user.preferredName).first()).toBeVisible({ timeout: 5000 });
   });
 
   test('should login with existing user', async ({ page }) => {
@@ -32,7 +32,7 @@ test.describe('Authentication', () => {
 
     // Verify we're on dashboard
     expect(page.url()).toContain('/dashboard');
-    await expect(page.getByText(user.preferredName)).toBeVisible({ timeout: 5000 });
+    await expect(page.getByText(user.preferredName).first()).toBeVisible({ timeout: 5000 });
   });
 
   test('should show error for invalid credentials', async ({ page }) => {
@@ -58,7 +58,7 @@ test.describe('Authentication', () => {
     await page.getByLabel(/email/i).fill(user.email);
 
     // Try weak password
-    await page.getByLabel(/hasło(?!\s+ponownie)/i).first().fill('weak');
+    await page.getByLabel(/^hasło$/i).fill('weak');
 
     await page.getByLabel(/imię|preferowana nazwa/i).fill(user.preferredName);
 
@@ -79,8 +79,8 @@ test.describe('Authentication', () => {
     const user = generateTestUser('terms_test');
 
     await page.getByLabel(/email/i).fill(user.email);
-    await page.getByLabel(/hasło(?!\s+ponownie)/i).first().fill(user.password);
-    await page.getByLabel(/powtórz hasło|hasło ponownie/i).fill(user.password);
+    await page.getByLabel(/^hasło$/i).fill(user.password);
+    await page.getByLabel(/potwierdź hasło|powtórz hasło|hasło ponownie/i).fill(user.password);
     await page.getByLabel(/imię|preferowana nazwa/i).fill(user.preferredName);
 
     // Don't check the terms checkbox

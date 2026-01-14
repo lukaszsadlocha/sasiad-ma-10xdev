@@ -40,7 +40,7 @@ test.describe('Booking Management', () => {
     await registerUser(page, owner);
 
     const community = generateTestCommunity('Osiedle Rezerwacji');
-    await createCommunity(page, community);
+    await createCommunity(page, community, { email: owner.email, password: owner.password });
 
     // Add an item
     const item = generateTestItem('Młot Udarowy');
@@ -62,8 +62,8 @@ test.describe('Booking Management', () => {
     await page.goto(`/invite/${token}`);
 
     await page.getByLabel(/email/i).fill(borrower.email);
-    await page.getByLabel(/hasło(?!\s+ponownie)/i).first().fill(borrower.password);
-    await page.getByLabel(/powtórz hasło|hasło ponownie/i).fill(borrower.password);
+    await page.getByLabel(/^hasło$/i).fill(borrower.password);
+    await page.getByLabel(/potwierdź hasło|powtórz hasło|hasło ponownie/i).fill(borrower.password);
     await page.getByLabel(/imię|preferowana nazwa/i).fill(borrower.preferredName);
     await page.getByRole('checkbox', { name: /akceptuję|zgadzam się/i }).check();
     await page.getByRole('button', { name: /zarejestruj|dołącz/i }).click();

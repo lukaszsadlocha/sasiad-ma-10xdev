@@ -14,21 +14,33 @@ import {
 
 test.describe('Community Management', () => {
   test('should create a new community (US-002)', async ({ page }) => {
+    // Log console errors
+    page.on('console', msg => {
+      if (msg.type() === 'error') {
+        console.log('Browser console error:', msg.text());
+      }
+    });
+
+    // Log failed requests
+    page.on('requestfailed', request => {
+      console.log('Failed request:', request.url(), request.failure()?.errorText);
+    });
+
     // Register user
     const user = generateTestUser('community_creator');
     await registerUser(page, user);
 
-    // Create community
+    // Create community (pass credentials for re-login workaround)
     const community = generateTestCommunity('Osiedle Testowe');
-    await createCommunity(page, community);
+    await createCommunity(page, community, { email: user.email, password: user.password });
 
-    // Verify community is displayed on dashboard
-    await expect(page.getByText(community.name)).toBeVisible({ timeout: 5000 });
-
-    // Verify user is admin (can see admin features)
-    await expect(page.getByRole('button', { name: /wygeneruj link|zaproś/i })).toBeVisible({
+    // Verify user is admin (can see admin features - this confirms community was created)
+    await expect(page.getByRole('button', { name: /wygeneruj link zaproszeniowy/i })).toBeVisible({
       timeout: 5000,
     });
+
+    // Verify community name is displayed
+    await expect(page.getByText(community.name).first()).toBeVisible({ timeout: 5000 });
   });
 
   test('should generate invite link (US-003)', async ({ page }) => {
@@ -37,7 +49,7 @@ test.describe('Community Management', () => {
     await registerUser(page, user);
 
     const community = generateTestCommunity('Osiedle Zaproszenia');
-    await createCommunity(page, community);
+    await createCommunity(page, community, { email: user.email, password: user.password });
 
     // Generate invite link
     const inviteLink = await generateInviteLink(page);
@@ -52,7 +64,7 @@ test.describe('Community Management', () => {
     await registerUser(page, userA);
 
     const community = generateTestCommunity('Osiedle Wspólne');
-    await createCommunity(page, community);
+    await createCommunity(page, community, { email: userA.email, password: userA.password });
 
     const inviteLink = await generateInviteLink(page);
 
@@ -71,8 +83,8 @@ test.describe('Community Management', () => {
 
     // Register through invite flow
     await page.getByLabel(/email/i).fill(userB.email);
-    await page.getByLabel(/hasło(?!\s+ponownie)/i).first().fill(userB.password);
-    await page.getByLabel(/powtórz hasło|hasło ponownie/i).fill(userB.password);
+    await page.getByLabel(/^hasło$/i).fill(userB.password);
+    await page.getByLabel(/potwierdź hasło|powtórz hasło|hasło ponownie/i).fill(userB.password);
     await page.getByLabel(/imię|preferowana nazwa/i).fill(userB.preferredName);
     await page.getByRole('checkbox', { name: /akceptuję|zgadzam się/i }).check();
     await page.getByRole('button', { name: /zarejestruj|dołącz/i }).click();

@@ -18,13 +18,15 @@ import * as fs from 'fs';
  */
 
 test.describe('Item Management', () => {
+  let testUser: ReturnType<typeof generateTestUser>;
+
   test.beforeEach(async ({ page }) => {
     // Setup: Register user and create community
-    const user = generateTestUser('item_user');
-    await registerUser(page, user);
+    testUser = generateTestUser('item_user');
+    await registerUser(page, testUser);
 
     const community = generateTestCommunity('Osiedle Przedmiotów');
-    await createCommunity(page, community);
+    await createCommunity(page, community, { email: testUser.email, password: testUser.password });
   });
 
   test('should add a new item without photo (US-005)', async ({ page }) => {

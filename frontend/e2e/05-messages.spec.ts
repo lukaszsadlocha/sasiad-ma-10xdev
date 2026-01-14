@@ -39,7 +39,7 @@ test.describe('Messaging', () => {
     await registerUser(page, userA);
 
     const community = generateTestCommunity('Osiedle Komunikacji');
-    await createCommunity(page, community);
+    await createCommunity(page, community, { email: userA.email, password: userA.password });
 
     // Generate invite link
     const inviteLink = await generateInviteLink(page);
@@ -57,8 +57,8 @@ test.describe('Messaging', () => {
     await page.goto(`/invite/${token}`);
 
     await page.getByLabel(/email/i).fill(userB.email);
-    await page.getByLabel(/hasło(?!\s+ponownie)/i).first().fill(userB.password);
-    await page.getByLabel(/powtórz hasło|hasło ponownie/i).fill(userB.password);
+    await page.getByLabel(/^hasło$/i).fill(userB.password);
+    await page.getByLabel(/potwierdź hasło|powtórz hasło|hasło ponownie/i).fill(userB.password);
     await page.getByLabel(/imię|preferowana nazwa/i).fill(userB.preferredName);
     await page.getByRole('checkbox', { name: /akceptuję|zgadzam się/i }).check();
     await page.getByRole('button', { name: /zarejestruj|dołącz/i }).click();
