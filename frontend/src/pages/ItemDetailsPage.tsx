@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { itemApi } from '../lib/api';
 import { Item, ItemStatus } from '../types';
@@ -16,24 +16,24 @@ export default function ItemDetailsPage() {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState(false);
 
-  useEffect(() => {
-    if (id) {
-      loadItem();
-    }
-  }, [id]);
-
-  const loadItem = async () => {
+  const loadItem = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
       const data = await itemApi.getItemById(Number(id));
       setItem(data);
-    } catch (err: any) {
-      setError(err.message || 'Nie udało się pobrać szczegółów przedmiotu');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Nie udało się pobrać szczegółów przedmiotu');
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    if (id) {
+      loadItem();
+    }
+  }, [id, loadItem]);
 
   const handleStatusChange = async (newStatus: ItemStatus) => {
     if (!item) return;
@@ -43,8 +43,8 @@ export default function ItemDetailsPage() {
       setError(null);
       const updatedItem = await itemApi.updateItemStatus(item.id, newStatus);
       setItem(updatedItem);
-    } catch (err: any) {
-      setError(err.message || 'Nie udało się zmienić statusu przedmiotu');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Nie udało się zmienić statusu przedmiotu');
     } finally {
       setUpdatingStatus(false);
     }

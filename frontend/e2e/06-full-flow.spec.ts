@@ -14,7 +14,7 @@ import {
   confirmHandover,
   confirmReturn,
 } from './helpers/booking.helper';
-import { goToMessages, sendMessage } from './helpers/message.helper';
+import { goToMessages } from './helpers/message.helper';
 
 /**
  * E2E Test: Complete Application Flow
@@ -35,7 +35,7 @@ import { goToMessages, sendMessage } from './helpers/message.helper';
  */
 
 test.describe('Full Application Flow (Critical Path)', () => {
-  test('should complete full borrowing cycle', async ({ page, context }) => {
+  test('should complete full borrowing cycle', async ({ page }) => {
     test.setTimeout(120000); // 2 minutes timeout for full flow
 
     // ========================================

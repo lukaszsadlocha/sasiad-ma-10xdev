@@ -4,7 +4,6 @@ import {
   generateTestCommunity,
   createCommunity,
   generateInviteLink,
-  joinCommunityViaLink,
 } from './helpers/community.helper';
 
 /**
@@ -58,7 +57,7 @@ test.describe('Community Management', () => {
     expect(inviteLink).toMatch(/\/invite\/[a-f0-9-]+/i);
   });
 
-  test('should join community via invite link (US-004)', async ({ page, context }) => {
+  test('should join community via invite link (US-004)', async ({ page }) => {
     // User A: Create community and get invite link
     const userA = generateTestUser('user_a');
     await registerUser(page, userA);

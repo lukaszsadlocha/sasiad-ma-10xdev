@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { communityApi, ApiError } from '../lib/api';
@@ -14,11 +14,7 @@ export function JoinCommunityPage() {
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
 
-  useEffect(() => {
-    loadCommunity();
-  }, [token]);
-
-  const loadCommunity = async () => {
+  const loadCommunity = useCallback(async () => {
     if (!token) {
       setError('Brak tokenu zaproszenia');
       setIsLoading(false);
@@ -38,7 +34,11 @@ export function JoinCommunityPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    loadCommunity();
+  }, [loadCommunity]);
 
   const handleJoin = async () => {
     if (!token) return;

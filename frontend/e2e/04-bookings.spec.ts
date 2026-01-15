@@ -29,7 +29,7 @@ test.describe('Booking Management', () => {
   let borrowerPassword: string;
   let itemName: string;
 
-  test.beforeEach(async ({ page, context }) => {
+  test.beforeEach(async ({ page }) => {
     // Setup: Create two users in the same community
 
     // User A (Owner): Register and create community

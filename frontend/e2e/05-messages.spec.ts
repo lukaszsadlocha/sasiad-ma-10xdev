@@ -9,7 +9,6 @@ import { generateTestItem, addItem, openItemDetails } from './helpers/item.helpe
 import {
   goToMessages,
   sendMessage,
-  verifyMessageReceived,
   openConversation,
   startConversationFromItem,
 } from './helpers/message.helper';

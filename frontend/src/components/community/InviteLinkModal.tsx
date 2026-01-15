@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { communityApi, ApiError } from '../../lib/api';
 import type { InviteLinkResponse } from '../../types';
 
@@ -14,13 +14,7 @@ export function InviteLinkModal({ communityId, isOpen, onClose }: InviteLinkModa
   const [error, setError] = useState<string>('');
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    if (isOpen && !inviteLink) {
-      generateLink();
-    }
-  }, [isOpen]);
-
-  const generateLink = async () => {
+  const generateLink = useCallback(async () => {
     try {
       setIsLoading(true);
       setError('');
@@ -35,7 +29,13 @@ export function InviteLinkModal({ communityId, isOpen, onClose }: InviteLinkModa
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [communityId]);
+
+  useEffect(() => {
+    if (isOpen && !inviteLink) {
+      generateLink();
+    }
+  }, [isOpen, inviteLink, generateLink]);
 
   const copyToClipboard = async () => {
     if (!inviteLink) return;

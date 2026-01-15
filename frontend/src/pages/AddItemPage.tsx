@@ -67,8 +67,8 @@ export default function AddItemPage() {
 
       await itemApi.createItem(data, photoFile || undefined);
       navigate('/items');
-    } catch (err: any) {
-      setError(err.message || 'Nie udało się dodać przedmiotu');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Nie udało się dodać przedmiotu');
     } finally {
       setIsSubmitting(false);
     }

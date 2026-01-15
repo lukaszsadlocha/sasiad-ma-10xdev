@@ -69,8 +69,8 @@ export default function BookingModal({
         onSuccess();
         onClose();
       }, 1500);
-    } catch (err: any) {
-      setError(err.message || 'Nie udało się utworzyć rezerwacji');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Nie udało się utworzyć rezerwacji');
     } finally {
       setLoading(false);
     }
