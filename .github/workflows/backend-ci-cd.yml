@@ -86,9 +86,8 @@ jobs:
         cache-to: type=gha,mode=max
 
     - name: Deploy to Azure App Service
-      uses: azure/webapps-deploy@v3
+      uses: azure/webapps-deploy@v2
       with:
-        app-name: 'sasiad-ma-api'
+        app-name: sasiad-ma-10xdev
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        type: container
-        images: ghcr.io/${{ github.repository }}/sasiad-ma-api:latest
+        images: ghcr.io/lukaszsadlocha/sasiad-ma-10xdev/sasiad-ma-api:latest
