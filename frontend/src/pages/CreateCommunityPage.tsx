@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { communityApi, ApiError } from '../lib/api';
+import { useAuth } from '../contexts/AuthContext';
 
 const createCommunitySchema = z.object({
   name: z.string()
@@ -18,6 +19,7 @@ type CreateCommunityFormData = z.infer<typeof createCommunitySchema>;
 
 export function CreateCommunityPage() {
   const navigate = useNavigate();
+  const { updateUser } = useAuth();
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
 
@@ -34,7 +36,10 @@ export function CreateCommunityPage() {
       setError('');
       setSuccess('');
 
-      await communityApi.createCommunity(data);
+      const community = await communityApi.createCommunity(data);
+
+      // Update user's communityId in auth context
+      updateUser({ communityId: community.id });
 
       setSuccess('Społeczność została utworzona!');
 
