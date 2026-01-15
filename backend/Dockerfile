@@ -17,4 +17,5 @@ RUN dotnet publish "SasiadMa.Api.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV ASPNETCORE_HTTP_PORTS=80
 ENTRYPOINT ["dotnet", "SasiadMa.Api.dll"]
