@@ -13,12 +13,8 @@ export function DashboardPage() {
   const [showInviteModal, setShowInviteModal] = useState(false);
 
   useEffect(() => {
-    if (user?.communityId) {
-      loadCommunity();
-    } else {
-      setIsLoadingCommunity(false);
-    }
-  }, [user]);
+    loadCommunity();
+  }, []);
 
   const loadCommunity = async () => {
     try {
